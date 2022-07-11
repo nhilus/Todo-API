@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Bicycle;
-
+use App\User;
 use Illuminate\Http\Request;
 
-class BicycleController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,7 @@ class BicycleController extends Controller
     public function index()
     {
         try{
-            return response()->json(Bicycle::all(), 200);
+            return response()->json(User::with(['bicycle'])->get(), 200);
         } catch (\Exception $exception){
             return response()->json(['error' => $exception], 500);
         }
@@ -32,8 +31,8 @@ class BicycleController extends Controller
     public function store(Request $request)
     {
         try{
-            $bicycle = Bicycle::create($request ->all());
-            return response()->json($bicycle, 201);
+            $user = User::create($request ->all());
+            return response()->json($user, 201);
 
         } catch (\Exception $exception){
             return response()->json(['error' => $exception], 500);
@@ -43,13 +42,13 @@ class BicycleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Bicycle  $bicycle
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Bicycle $bicycle)
+    public function show(User $user)
     {
         try{
-            return response()->json($bicycle, 200);
+            return response()->json($user, 200);
         } catch (\Exception $exception){
             return response()->json(['error' => $exception], 500);
         }
@@ -60,14 +59,14 @@ class BicycleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Bicycle  $bicycle
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bicycle $bicycle)
+    public function update(Request $request, User $user)
     {
         try{
-            $bicycle->update($request->all());
-            return response()->json($bicycle, 200);
+            $user->update($request->all());
+            return response()->json($user, 200);
         } catch (\Exception $exception){
             return response()->json(['error' => $exception], 500);
         }
@@ -76,13 +75,13 @@ class BicycleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Bicycle  $bicycle
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bicycle $bicycle)
+    public function destroy(User $user)
     {
         try {
-            $bicycle->delete();
+            $user->delete();
             return response()->json(['message' => 'Deleted'], 205);
         } catch (Exception $exception) {
             return response()->json(['error' => $exception], 500);    }
@@ -92,7 +91,7 @@ class BicycleController extends Controller
     {
 
         try {
-            return response()->json(Bicycle::where('bicycle', 'LIKE', '%' . $parameter . '%')->orwhere('id', 'LIKE', '%' . $parameter . '%')->get(), 200);
+            return response()->json(User::where('user', 'LIKE', '%' . $parameter . '%')->orwhere('id', 'LIKE', '%' . $parameter . '%')->get(), 200);
         } catch (Exception $exception) {
             return response()->json(['error' => $exception], 500);
         }

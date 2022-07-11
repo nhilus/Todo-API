@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Country;
+use App\User;
 use Illuminate\Http\Request;
 
 class CountryController extends Controller
@@ -14,18 +15,13 @@ class CountryController extends Controller
      */
     public function index()
     {
-        //
+        try{
+            return response()->json(Country::with(['user'])->get(), 200);
+        } catch (\Exception $exception){
+            return response()->json(['error' => $exception], 500);
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +31,13 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $country = Country::create($request ->all());
+            return response()->json($country, 201);
+
+        } catch (\Exception $exception){
+            return response()->json(['error' => $exception], 500);
+        }
     }
 
     /**
@@ -46,19 +48,13 @@ class CountryController extends Controller
      */
     public function show(Country $country)
     {
-        //
+        try{
+            return response()->json($country, 200);
+        } catch (\Exception $exception){
+            return response()->json(['error' => $exception], 500);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Country  $country
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Country $country)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -69,7 +65,12 @@ class CountryController extends Controller
      */
     public function update(Request $request, Country $country)
     {
-        //
+        try{
+            $country->update($request->all());
+            return response()->json($country, 200);
+        } catch (\Exception $exception){
+            return response()->json(['error' => $exception], 500);
+        }
     }
 
     /**
@@ -80,6 +81,20 @@ class CountryController extends Controller
      */
     public function destroy(Country $country)
     {
-        //
+        try {
+            $country->delete();
+            return response()->json(['message' => 'Deleted'], 205);
+        } catch (Exception $exception) {
+            return response()->json(['error' => $exception], 500);    }
+    }
+
+    public function search ($parameter)
+    {
+
+        try {
+            return response()->json(Country::where('country', 'LIKE', '%' . $parameter . '%')->orwhere('id', 'LIKE', '%' . $parameter . '%')->get(), 200);
+        } catch (Exception $exception) {
+            return response()->json(['error' => $exception], 500);
+        }
     }
 }

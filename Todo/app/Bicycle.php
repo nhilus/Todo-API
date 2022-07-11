@@ -12,6 +12,17 @@ class Bicycle extends Model
      * @var array
      */
     protected $fillable = [
-        'todo',
+        'user_id',
+        'brand',
+        'model',
+        'color',
+        'price',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
 }

@@ -21,3 +21,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('todos/search/{parameter}', 'TodoController@search');
 Route::apiResource('todos', 'TodoController');
 
+Route::get('bicycles/search/{parameter}', 'BicycleController@search');
+Route::apiResource('bicycles', 'BicycleController');
+
+Route::get('users/search/{parameter}', 'UserController@search');
+Route::apiResource('users', 'UserController');
+
+Route::get('countries/search/{parameter}', 'CountryController@search');
+Route::apiResource('countries', 'CountryController');
+

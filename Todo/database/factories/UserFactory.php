@@ -19,8 +19,9 @@ use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'first-name' => $faker->firstName,
-        'last-name'=>$faker->lastName,
+        'country_id' => rand(1,50),
+        'first_name' => $faker->firstName,
+        'last_name'=>$faker->lastName,
         'birth_date'=>$faker->date(),
     ];
 });
