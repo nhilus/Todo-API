@@ -23,10 +23,16 @@ Route::apiResource('todos', 'TodoController');
 
 Route::get('bicycles/search/{parameter}', 'BicycleController@search');
 Route::apiResource('bicycles', 'BicycleController');
-
 Route::get('users/search/{parameter}', 'UserController@search');
 Route::apiResource('users', 'UserController');
-
 Route::get('countries/search/{parameter}', 'CountryController@search');
 Route::apiResource('countries', 'CountryController');
+
+
+Route::get('actors/search/{parameter}', 'ActorController@search');
+Route::apiResource('actors', 'ActorController');
+Route::get('movies/search/{parameter}', 'MovieController@search');
+Route::apiResource('movies', 'MovieController');
+Route::get('genres/search/{parameter}', 'GenreController@search');
+Route::apiResource('genres', 'GenreController');
 

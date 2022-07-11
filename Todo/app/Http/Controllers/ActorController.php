@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Country;
+use App\Actor;
 use Illuminate\Http\Request;
 
-class CountryController extends Controller
+class ActorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class CountryController extends Controller
     public function index()
     {
         try{
-            return response()->json(Country::with(['user'])->get(), 200);
+            return response()->json(Actor::all(), 200);
         } catch (\Exception $exception){
             return response()->json(['error' => $exception], 500);
         }
@@ -31,8 +31,8 @@ class CountryController extends Controller
     public function store(Request $request)
     {
         try{
-            $country = Country::create($request ->all());
-            return response()->json($country, 201);
+            $actor = Actor::create($request ->all());
+            return response()->json($actor, 201);
 
         } catch (\Exception $exception){
             return response()->json(['error' => $exception], 500);
@@ -42,13 +42,13 @@ class CountryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Country  $country
+     * @param  \App\Actor  $actor
      * @return \Illuminate\Http\Response
      */
-    public function show(Country $country)
+    public function show(Actor $actor)
     {
         try{
-            return response()->json($country, 200);
+            return response()->json($actor, 200);
         } catch (\Exception $exception){
             return response()->json(['error' => $exception], 500);
         }
@@ -59,14 +59,14 @@ class CountryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Country  $country
+     * @param  \App\Actor  $Actor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Country $country)
+    public function update(Request $request, Actor $actor)
     {
         try{
-            $country->update($request->all());
-            return response()->json($country, 200);
+            $actor->update($request->all());
+            return response()->json($actor, 200);
         } catch (\Exception $exception){
             return response()->json(['error' => $exception], 500);
         }
@@ -75,13 +75,13 @@ class CountryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Country  $country
+     * @param  \App\Actor  $Actor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Country $country)
+    public function destroy(Actor $Actor)
     {
         try {
-            $country->delete();
+            $actor->delete();
             return response()->json(['message' => 'Deleted'], 205);
         } catch (Exception $exception) {
             return response()->json(['error' => $exception], 500);    }
@@ -91,7 +91,7 @@ class CountryController extends Controller
     {
 
         try {
-            return response()->json(Country::where('country', 'LIKE', '%' . $parameter . '%')->orwhere('id', 'LIKE', '%' . $parameter . '%')->get(), 200);
+            return response()->json(Actor::where('actor', 'LIKE', '%' . $parameter . '%')->orwhere('id', 'LIKE', '%' . $parameter . '%')->get(), 200);
         } catch (Exception $exception) {
             return response()->json(['error' => $exception], 500);
         }
