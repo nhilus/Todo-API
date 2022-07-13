@@ -15,7 +15,7 @@ class GenreController extends Controller
     public function index()
     {
         try{
-            return response()->json(Genre::all(), 200);
+            return response()->json(Genre::with(['movies'])->get(), 200);
         } catch (\Exception $exception){
             return response()->json(['error' => $exception], 500);
         }

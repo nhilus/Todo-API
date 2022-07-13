@@ -14,11 +14,10 @@ class Movie extends Model
     protected $fillable = [
         'title',
         'year',
-        'release',
+        'released',
         'runtime',
         'director',
-        'actor_id',
-        'genre_id',
+        'imdb_votes',
     ];
 
     public function genres()
@@ -29,4 +28,5 @@ class Movie extends Model
     {
         return $this->belongsToMany('App\Actor');
     }
+
 }

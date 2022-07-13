@@ -15,7 +15,7 @@ class ActorController extends Controller
     public function index()
     {
         try{
-            return response()->json(Actor::all(), 200);
+            return response()->json(Actor::with(['movies'])->get(), 200);
         } catch (\Exception $exception){
             return response()->json(['error' => $exception], 500);
         }
@@ -48,7 +48,7 @@ class ActorController extends Controller
     public function show(Actor $actor)
     {
         try{
-            return response()->json($actor, 200);
+            return response()->json($actor->load('movies'), 200);
         } catch (\Exception $exception){
             return response()->json(['error' => $exception], 500);
         }
@@ -75,10 +75,10 @@ class ActorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Actor  $Actor
+     * @param  \App\Actor  $actor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Actor $Actor)
+    public function destroy(Actor $actor)
     {
         try {
             $actor->delete();
